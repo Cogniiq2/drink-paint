@@ -7,6 +7,11 @@
   "compatibility_flags": ["nodejs_compat"],
   // Cloudflare Images binding used by next/image (/_next/image). No dashboard setup required.
   "images": { "binding": "IMAGES" },
+  // Worker Previews (non-production branch builds) do not inherit bindings, so the Images
+  // binding must be repeated here or /_next/image fails on preview URLs.
+  "previews": {
+    "images": { "binding": "IMAGES" }
+  },
   "assets": {
     "directory": "dist/client",
     "not_found_handling": "none",
