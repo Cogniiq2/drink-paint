@@ -26,7 +26,8 @@ export async function POST(req: Request) {
 
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(payload, sig, secret);
+    // Async variant: identical verification, but also works on Cloudflare Workers (WebCrypto is async-only).
+    event = await stripe.webhooks.constructEventAsync(payload, sig, secret);
   } catch (e) {
     console.warn("[webhook] signature failed", e instanceof Error ? e.message : e);
     return NextResponse.json({ error: "invalid_signature" }, { status: 400 });

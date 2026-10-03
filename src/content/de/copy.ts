@@ -133,7 +133,10 @@ export const copy = {
   footer: {
     legal: { impressum: "Impressum", datenschutz: "Datenschutz", agb: "Ticketbedingungen", cookies: "Cookie-Einstellungen", contact: "Kontakt" },
     explore: { events: "Abende", atelier: "Das Atelier", privateEvents: "Private Events", voucher: "Gutschein", faq: "FAQ" },
-    company: `© ${new Date().getFullYear()} ${site.company.legalName}`,
+    // Getter: Workers freeze the clock at epoch during module init, so the year must be read per access.
+    get company() {
+      return `© ${new Date().getFullYear()} ${site.company.legalName}`;
+    },
     line: "Paint & Drink in Bayreuth.",
   },
   event: {

@@ -17,7 +17,7 @@ import {
   type TicketRecord,
   type WaitlistEntry,
 } from "./types";
-import { seedEvents, seedSold } from "./seed";
+import { buildSeedEvents, seedSold } from "./seed";
 import { generateOrderNumber, generateTicketCode } from "@/lib/tickets/codes";
 
 const now = () => new Date().toISOString();
@@ -41,7 +41,7 @@ export class MemoryStore implements DataStore {
   private testimonials: Testimonial[] = [];
 
   constructor() {
-    for (const input of seedEvents) {
+    for (const input of buildSeedEvents()) {
       const ev = this.insertEvent(input);
       const sold = seedSold[input.slug] ?? 0;
       if (sold > 0) this.seedPaidOrder(ev, sold);

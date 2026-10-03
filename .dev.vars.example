@@ -1,0 +1,11 @@
+# Local Cloudflare preview (npm run preview:cf). Copy to .dev.vars BEFORE `npm run build:cf`:
+#   cp .dev.vars.example .dev.vars
+# The Vite plugin copies .dev.vars into dist/server/ at build time, and `wrangler dev` reads it from there.
+# .dev.vars is git-ignored. Placeholders only in this file.
+NEXT_PUBLIC_SITE_URL=http://127.0.0.1:8787
+PUBLIC_SALES_ENABLED=true
+HOLD_MINUTES=30
+ADMIN_PASSWORD=change-me-at-least-12-chars
+ADMIN_SESSION_SECRET=change-me-generate-with-openssl-rand-hex-32-change-me
+CRON_SECRET=change-me-at-least-16-chars
+# Leave Supabase / Stripe / Resend empty for the in-memory demo store, local Stripe-free payment simulator and dev outbox.

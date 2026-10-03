@@ -2,15 +2,20 @@
    Requires a prior `next build` and PUBLIC_SALES_ENABLED=true + admin credentials in .env.local. */
 import { chromium } from "playwright";
 import { spawn } from "node:child_process";
+// QA_BASE_URL targets an already-running server (e.g. `wrangler dev`); otherwise a fresh Node server is spawned.
+const external = process.env.QA_BASE_URL?.replace(/\/$/, "");
 const port = 3100;
-const base = `http://localhost:${port}`;
-const server = spawn("node", ["node_modules/next/dist/bin/next", "start", "-p", String(port)], { stdio: ["ignore", "pipe", "pipe"], detached: true, env: { ...process.env, NEXT_PUBLIC_SITE_URL: base } });
-await new Promise((resolve, reject) => {
-  const t = setTimeout(() => reject(new Error("server start timeout")), 60000);
-  server.stdout.on("data", (d) => { if (String(d).includes("Ready")) { clearTimeout(t); resolve(); } });
-  server.stderr.on("data", (d) => process.stderr.write(d));
-});
-const stop = () => { try { process.kill(-server.pid, "SIGTERM"); } catch {} };
+const base = external ?? `http://localhost:${port}`;
+let server = null;
+if (!external) {
+  server = spawn("node", ["node_modules/next/dist/bin/next", "start", "-p", String(port)], { stdio: ["ignore", "pipe", "pipe"], detached: true, env: { ...process.env, NEXT_PUBLIC_SITE_URL: base } });
+  await new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error("server start timeout")), 60000);
+    server.stdout.on("data", (d) => { if (String(d).includes("Ready")) { clearTimeout(t); resolve(); } });
+    server.stderr.on("data", (d) => process.stderr.write(d));
+  });
+}
+const stop = () => { try { if (server) process.kill(-server.pid, "SIGTERM"); } catch {} };
 process.on("exit", stop);
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
 const results = [];

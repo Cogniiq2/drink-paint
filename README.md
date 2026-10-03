@@ -29,6 +29,9 @@ Admin: `/admin` – set `ADMIN_PASSWORD` (≥12 chars) and `ADMIN_SESSION_SECRET
 | `npm run qa`        | End-to-end flow tests (needs a build; spawns port 3100)   |
 | `npm run shots`     | Desktop/mobile screenshots of every page into `screenshots/` |
 | `npm run placeholders` | Regenerate abstract placeholder media                  |
+| `npm run build:cf`  | Cloudflare Workers production build (vinext)              |
+| `npm run preview:cf`| Run the built Worker locally in workerd                   |
+| `npm run deploy:cf` | Build and `wrangler deploy` from your machine             |
 
 Playwright uses its bundled Chromium; set `CHROME_PATH` to use another binary.
 
@@ -42,7 +45,7 @@ Playwright uses its bundled Chromium; set `CHROME_PATH` to use another binary.
 - `src/app/api/stripe/webhook` – payment truth, idempotent
 - `src/lib/email/templates/` – transactional emails
 - `supabase/migrations/0001_init.sql` – schema, RLS, atomic hold functions
-- `docs/ARCHITECTURE.md`, `docs/LAUNCH-CHECKLIST.md`
+- `docs/ARCHITECTURE.md`, `docs/LAUNCH-CHECKLIST.md`, `docs/CLOUDFLARE.md` (Workers deployment)
 
 ## Media
 

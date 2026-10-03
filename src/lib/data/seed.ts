@@ -62,49 +62,55 @@ function evening(opts: {
   };
 }
 
-export const seedEvents: EventInput[] = [
-  evening({
-    slug: "paint-the-night-no-01",
-    title: "Paint the Night",
-    edition: "No. 01",
-    subtitle: "Eröffnungsabend",
-    day: 12,
-    startHour: 19,
-    heroImagePath: "/media/table-wide.webp",
-    heroImageAlt: "Langer Tisch mit Leinwänden und Weingläsern im Atelier",
-  }),
-  evening({
-    slug: "canvas-wine-no-02",
-    title: "Canvas & Wine",
-    edition: "No. 02",
-    subtitle: "Freitagabend",
-    day: 26,
-    startHour: 19,
-    heroImagePath: "/media/wine-pour.webp",
-    heroImageAlt: "Rotwein wird in ein Glas gegossen, im Hintergrund eine Leinwand",
-  }),
-  evening({
-    slug: "late-edition-no-03",
-    title: "Late Edition",
-    edition: "No. 03",
-    subtitle: "Samstag, später Beginn",
-    day: 41,
-    startHour: 20,
-    heroImagePath: "/media/brush-detail.webp",
-    heroImageAlt: "Pinsel berührt eine frisch grundierte Leinwand",
-  }),
-  evening({
-    slug: "paint-the-night-no-04",
-    title: "Paint the Night",
-    edition: "No. 04",
-    subtitle: "Verkauf startet bald",
-    day: 58,
-    startHour: 19,
-    salesOpenInDays: 20,
-    heroImagePath: "/media/finished-art.webp",
-    heroImageAlt: "Fertige Leinwände lehnen an einer Wand",
-  }),
-];
+/**
+ * A function (not a constant) on purpose: Cloudflare Workers freeze the clock at
+ * epoch while modules initialise, so relative dates must be computed per call.
+ */
+export function buildSeedEvents(): EventInput[] {
+  return [
+    evening({
+      slug: "paint-the-night-no-01",
+      title: "Paint the Night",
+      edition: "No. 01",
+      subtitle: "Eröffnungsabend",
+      day: 12,
+      startHour: 19,
+      heroImagePath: "/media/table-wide.webp",
+      heroImageAlt: "Langer Tisch mit Leinwänden und Weingläsern im Atelier",
+    }),
+    evening({
+      slug: "canvas-wine-no-02",
+      title: "Canvas & Wine",
+      edition: "No. 02",
+      subtitle: "Freitagabend",
+      day: 26,
+      startHour: 19,
+      heroImagePath: "/media/wine-pour.webp",
+      heroImageAlt: "Rotwein wird in ein Glas gegossen, im Hintergrund eine Leinwand",
+    }),
+    evening({
+      slug: "late-edition-no-03",
+      title: "Late Edition",
+      edition: "No. 03",
+      subtitle: "Samstag, später Beginn",
+      day: 41,
+      startHour: 20,
+      heroImagePath: "/media/brush-detail.webp",
+      heroImageAlt: "Pinsel berührt eine frisch grundierte Leinwand",
+    }),
+    evening({
+      slug: "paint-the-night-no-04",
+      title: "Paint the Night",
+      edition: "No. 04",
+      subtitle: "Verkauf startet bald",
+      day: 58,
+      startHour: 19,
+      salesOpenInDays: 20,
+      heroImagePath: "/media/finished-art.webp",
+      heroImageAlt: "Fertige Leinwände lehnen an einer Wand",
+    }),
+  ];
+}
 
 /** How many seats are already sold in the demo (to exercise every UI state). */
 export const seedSold: Record<string, number> = {

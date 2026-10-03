@@ -63,15 +63,22 @@ export const isProduction = () => env().NODE_ENV === "production";
 
 /**
  * Payment simulation (no Stripe key) is allowed only when the public site URL
- * points at localhost. A deployed site without a Stripe key can never issue
- * tickets without payment.
+ * is EXPLICITLY set to a localhost address. The schema default (localhost) does
+ * not count: an unset variable on a deployed site must never enable it, so a
+ * deployed site without a Stripe key can never issue tickets without payment.
  */
 export const paymentSimulationAllowed = () => {
   if (hasStripe()) return false;
-  try {
-    const host = new URL(env().NEXT_PUBLIC_SITE_URL).hostname;
-    return host === "localhost" || host === "127.0.0.1";
-  } catch {
-    return false;
-  }
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL;
+  if (!explicit) return false;
+  const isLocal = (url: string) => {
+    try {
+      const host = new URL(url).hostname;
+      return host === "localhost" || host === "127.0.0.1";
+    } catch {
+      return false;
+    }
+  };
+  // Both the build-time (inlined) and runtime values must be local.
+  return isLocal(explicit) && isLocal(env().NEXT_PUBLIC_SITE_URL);
 };
