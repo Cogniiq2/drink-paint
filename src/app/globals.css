@@ -1,0 +1,530 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────────────────
+   BoLaGio Atelier — design tokens
+   The serif is emotion. The sans is information.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Palette */
+  --bone: #eee8dd;
+  --ivory: #f7f3eb;
+  --ink: #161411;
+  --umber: #24201c;
+  --wine: #6b2928;
+  --wine-deep: #4e1d1c;
+  --brass: #9a7b52;
+
+  /* Semantic — light surface */
+  --surface: var(--ivory);
+  --surface-2: var(--bone);
+  --text: var(--ink);
+  --text-muted: #6d655a;
+  --hairline: rgb(22 20 17 / 0.14);
+  --hairline-strong: rgb(22 20 17 / 0.32);
+
+  /* Type */
+  --font-display: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-instrument-sans), "Helvetica Neue", Arial, sans-serif;
+
+  /* Fluid type scale (mobile → desktop) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-xl: clamp(1.375rem, 1.1rem + 1vw, 1.875rem);
+  --text-2xl: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
+  --text-3xl: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem);
+  --text-4xl: clamp(2.75rem, 1.4rem + 5.4vw, 6.5rem);
+  --text-5xl: clamp(3.25rem, 1.2rem + 8vw, 9.5rem);
+
+  /* Space */
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --section: clamp(5rem, 12vw, 11rem);
+  --section-sm: clamp(3.5rem, 8vw, 7rem);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-press: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 160ms;
+  --dur: 320ms;
+  --dur-slow: 720ms;
+
+  --radius: 2px;
+  --radius-md: 6px;
+
+  color-scheme: light;
+}
+
+/* Dark surface — applied per section with `.surface-dark` */
+.surface-dark {
+  --surface: var(--ink);
+  --surface-2: var(--umber);
+  --text: var(--bone);
+  --text-muted: #a89f92;
+  --hairline: rgb(238 232 221 / 0.16);
+  --hairline-strong: rgb(238 232 221 / 0.36);
+  background: var(--surface);
+  color: var(--text);
+  color-scheme: dark;
+}
+
+.surface-bone {
+  --surface: var(--bone);
+  --surface-2: var(--ivory);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.surface-wine {
+  --surface: var(--wine);
+  --surface-2: var(--wine-deep);
+  --text: var(--ivory);
+  --text-muted: rgb(247 243 235 / 0.72);
+  --hairline: rgb(247 243 235 / 0.2);
+  --hairline-strong: rgb(247 243 235 / 0.4);
+  background: var(--surface);
+  color: var(--text);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bone: var(--bone);
+  --color-ivory: var(--ivory);
+  --color-ink: var(--ink);
+  --color-umber: var(--umber);
+  --color-wine: var(--wine);
+  --color-wine-deep: var(--wine-deep);
+  --color-brass: var(--brass);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+
+  --text-xs: var(--text-xs);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+  --text-3xl: var(--text-3xl);
+  --text-4xl: var(--text-4xl);
+  --text-5xl: var(--text-5xl);
+
+  --spacing-gutter: var(--gutter);
+  --spacing-section: var(--section);
+  --spacing-section-sm: var(--section-sm);
+
+  --radius-xs: var(--radius);
+  --radius-md: var(--radius-md);
+
+  --ease-out: var(--ease-out);
+  --ease-in-out: var(--ease-in-out);
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv05";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--wine);
+  color: var(--ivory);
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ── Typography utilities ──────────────────────────────────────────────── */
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.display-xl {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.display-sm {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.lede {
+  font-size: var(--text-lg);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.measure {
+  max-width: 34ch;
+}
+.measure-wide {
+  max-width: 56ch;
+}
+
+.italic-accent {
+  font-style: italic;
+  color: var(--wine);
+}
+.surface-dark .italic-accent,
+.surface-wine .italic-accent {
+  color: inherit;
+  opacity: 0.9;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Layout ───────────────────────────────────────────────────────────────── */
+
+.container-x {
+  padding-inline: var(--gutter);
+  padding-inline: max(var(--gutter), env(safe-area-inset-left));
+}
+
+.hairline-t {
+  border-top: 1px solid var(--hairline);
+}
+.hairline-b {
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* ── Buttons (physical, not glossy) ──────────────────────────────────────── */
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-press),
+    background-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    opacity var(--dur) var(--ease-out);
+  will-change: transform;
+}
+.btn:active {
+  transform: scale(0.98);
+  transition-duration: 60ms;
+}
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--text);
+  color: var(--surface);
+  border: 1px solid var(--text);
+}
+.btn-primary:hover {
+  background: var(--wine);
+  border-color: var(--wine);
+  color: var(--ivory);
+}
+.surface-dark .btn-primary:hover,
+.surface-wine .btn-primary:hover {
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--ink);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--hairline-strong);
+}
+.btn-outline:hover {
+  border-color: var(--text);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  padding-inline: 0.25rem;
+  min-height: 2.75rem;
+}
+.btn-ghost .btn-underline {
+  position: absolute;
+  left: 0.25rem;
+  right: 0.25rem;
+  bottom: 0.6rem;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left;
+  transform: scaleX(0.35);
+  opacity: 0.5;
+  transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out);
+}
+.btn-ghost:hover .btn-underline {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.btn .btn-arrow {
+  display: inline-block;
+  transition: transform var(--dur) var(--ease-out);
+}
+.btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ── Forms ────────────────────────────────────────────────────────────────── */
+
+.field-input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--hairline-strong);
+  border-radius: 0;
+  outline: none;
+  transition: border-color var(--dur) var(--ease-out);
+}
+.field-input:focus {
+  border-bottom-color: var(--text);
+}
+.field-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+.field-input[aria-invalid="true"] {
+  border-bottom-color: var(--wine);
+}
+select.field-input {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 12px) 55%, calc(100% - 7px) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 1.5rem;
+}
+
+/* ── Media ───────────────────────────────────────────────────────────────── */
+
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--umber);
+  border-radius: var(--radius);
+}
+.media-frame img,
+.media-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.media-hover img {
+  transition: transform 1.2s var(--ease-out);
+}
+@media (hover: hover) {
+  .media-hover:hover img {
+    transform: scale(1.03);
+  }
+}
+
+/* ── Hero entrance (CSS-only so LCP is never blocked by JS) ──────────────── */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.1em, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.rise {
+  animation: rise 0.9s var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+.fade {
+  animation: fade 1s var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.mask-line > span {
+  display: block;
+  animation: rise 1s var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* Scroll reveals — initial state only when JS enabled (html[data-js]) */
+html[data-js] .reveal {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+  transition-delay: var(--delay, 0ms);
+}
+html[data-js] .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+html[data-js] .reveal-scale img {
+  transform: scale(1.04);
+  transition: transform 1.6s var(--ease-out);
+}
+html[data-js] .reveal-scale.is-in img {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html[data-js] .reveal,
+  html[data-js] .reveal-scale img {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Misc ─────────────────────────────────────────────────────────────────── */
+
+.sr-only-focusable:not(:focus):not(:focus-within) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
