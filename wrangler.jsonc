@@ -5,6 +5,9 @@
   "main": "worker/index.ts",
   "compatibility_date": "2026-09-01",
   "compatibility_flags": ["nodejs_compat"],
+  // Serve Preview URLs (<version>-<name>.<subdomain>.workers.dev). Declared here so the repo,
+  // not the dashboard toggle, is the source of truth.
+  "preview_urls": true,
   // Cloudflare Images binding used by next/image (/_next/image). No dashboard setup required.
   "images": { "binding": "IMAGES" },
   // Worker Previews (non-production branch builds) do not inherit bindings, so the Images
